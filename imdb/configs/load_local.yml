@@ -1,12 +1,12 @@
 resources:
   db_connection:
     config:
-      # host: "localhost"
-      # port: "3306"
-      # username: "imdb"
-      # password: "maria"
-      # database: "dwh"
-      db_file: "staging.db"
+      host: "localhost"
+      port: 5432
+      username: "postgres"
+      password: "postgres"
+      database: "postgres"
+      # db_file: "staging.db"
 ops:
   op_load_raw_files_to_db:
     config:
