@@ -1,7 +1,7 @@
-from dagster import In, Nothing, file_relative_path, op, Field, Array, String
-import requests
+from dagster import file_relative_path, op, Field, Array, String
 import os.path
 import gzip
+from security import safe_requests
 
 @op(config_schema={
     'file_list': Field(Array(String), description='list of file urls'),
@@ -15,7 +15,7 @@ def op_download_data_files(context):
         file_name = os.path.basename(url)
         basename = os.path.splitext(file_name)[0]
         context.log.info(f'Downloading {file_name}')
-        resp = requests.get(url, stream=True)
+        resp = safe_requests.get(url, stream=True)
         context.log.info(f'Unzipping {file_name}')
         tsv = gzip.decompress(resp.content)
         context.log.info(f'Writing {file_name} to file')
