@@ -15,7 +15,7 @@ def op_download_data_files(context):
         file_name = os.path.basename(url)
         basename = os.path.splitext(file_name)[0]
         context.log.info(f'Downloading {file_name}')
-        resp = requests.get(url, stream=True)
+        resp = requests.get(url, stream=True, timeout=60)
         context.log.info(f'Unzipping {file_name}')
         tsv = gzip.decompress(resp.content)
         context.log.info(f'Writing {file_name} to file')
